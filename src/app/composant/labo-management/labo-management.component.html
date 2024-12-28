@@ -1,0 +1,79 @@
+<header>
+  <div class="logo">
+      <a href="index.html"> <span>Mon</span>Labo</a>
+  </div>
+  <ul class="menu">
+      <li><a  href="/pa">Acceuil</a></li>
+      <li><a href="#a-propos">à propos</a></li>
+      <li><a   href="/login">se connecter</a></li>
+      <li><a   href="/inscrire">s'inscrire</a></li>
+  </ul>
+  <div class="responsive-menu"></div>
+</header>
+<div class="container mt-4">
+  <h2 class="mb-4">Gestion des Laboratoires</h2>
+
+  <!-- Formulaire pour ajouter/modifier un laboratoire -->
+  <form (ngSubmit)="onSubmit()" #laboForm="ngForm">
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="nom" class="form-label">Nom du laboratoire</label>
+        <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="labo.nom" required>
+      </div>
+      <div class="col-md-6">
+        <label for="nrc" class="form-label">Numéro de Registre de Commerce</label>
+        <input type="text" class="form-control" id="nrc" name="nrc" [(ngModel)]="labo.nrc" required>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="logo" class="form-label">Logo</label>
+        <div>
+          <button type="button" class="btn btn-outline-primary" (click)="fileInput.click()">
+            <i class="fas fa-upload"></i> Choisir un fichier
+          </button>
+          <input
+            hidden
+            type="file"
+            #fileInput
+            id="logo"
+            name="logo"
+            (change)="onLogoChange($event)"
+            accept="image/*"
+          />
+        </div>
+
+
+      </div>
+
+      <div class="col-md-6">
+        <label for="dateActivation" class="form-label">Date d'activation</label>
+        <input type="date" class="form-control" id="dateActivation" name="dateActivation" [(ngModel)]="labo.dateActivation">
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="active" class="form-label">Statut  <div> </div></label>
+
+      <select class="form-select" id="active" name="active" [(ngModel)]="labo.active">
+        <option [value]="true">Actif</option>
+        <option [value]="false">Inactif</option>
+      </select>
+    </div>
+
+
+  </form>
+  <div class="col-md-12 text-right">
+    <button class="btn btn-danger mr-3" (click)="resetForm()">
+      <i class="fas fa-ban"></i>&nbsp;
+      Annuler
+    </button>
+    <button class="btn btn-primary" >
+      <i class="fas fa-save"></i>&nbsp;
+      Enregitrer
+    </button>
+  </div>
+  <hr>
+
+</div>

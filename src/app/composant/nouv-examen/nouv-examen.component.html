@@ -1,0 +1,216 @@
+<!-- <div class="col mb-3">
+  <div class="col-md-12 mb-3 mt-3">
+    <button (click)="fileInput.click()" style="background-color: transparent; border: none;">
+      <img [src]="imgUrl" class="rounded-circle" width="200px" height="200px" />
+      <input hidden type="file" #fileInput (change)="onFileInput(fileInput.files)">
+    </button>
+  </div>
+  <hr>
+  <div class="col-md-12">
+    <div class="col-md-12 mb-3">
+      <h2><i class="fas fa-info-circle blue-color"></i>&nbsp;Information sur l'analyse</h2>
+    </div>
+    <div class="alert alert-danger" *ngIf="errorMsg.length > 0">
+      <div *ngFor="let msg of errorMsg">
+        {{ msg }}
+      </div>
+    </div>
+    <div class="col-md-12">
+      <form>
+        <div class="row mb-3">
+          <div class="col">
+            <input type="text" class="form-control" placeholder="Nom"
+            name="nom" [(ngModel)]="clientFournisseur.nom">
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" placeholder="Adresse 1"
+            name="adresse1" [(ngModel)]="adresseDto.adresse1">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <input type="text" class="form-control" placeholder="Prenom"
+            name="prenom" [(ngModel)]="clientFournisseur.prenom"
+            >
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" placeholder="Adresse 2"
+                   name="adresse2" [(ngModel)]="adresseDto.adresse2">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <input type="email" class="form-control" placeholder="E-mail"
+                   name="email" [(ngModel)]="clientFournisseur.mail">
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" placeholder="Ville"
+                   name="ville" [(ngModel)]="adresseDto.ville">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <input type="text" class="form-control" placeholder="Telephone"
+                   name="numtel" [(ngModel)]="clientFournisseur.numTel">
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" placeholder="Code postal"
+                   name="codepostal" [(ngModel)]="adresseDto.codePostale">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            &nbsp;
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" placeholder="Pays"
+                   name="pays" [(ngModel)]="adresseDto.pays">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-md-12 text-right">
+    <button class="btn btn-danger mr-3" (click)="cancelClick()">
+      <i class="fas fa-ban"></i>&nbsp;
+      Annuler
+    </button>
+    <button class="btn btn-primary" (click)="enregistrer()">
+      <i class="fas fa-save"></i>&nbsp;
+      Enregitrer
+    </button>
+  </div>
+
+</div> -->
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<header>
+  <div class="logo">
+    <a href="index.html"> <span>Mon</span>Labo</a>
+  </div>
+  <ul class="menu">
+    <li><a href="/pa">Accueil</a></li>
+    <li><a href="#a-propos">À propos</a></li>
+    <li><a href="/login">Se connecter</a></li>
+  </ul>
+  <div class="responsive-menu"></div>
+</header>
+<div class="container mt-4">
+  <!-- Nav Tabs -->
+  <ul class="nav nav-tabs" id="infoTabs" role="tablist">
+    <li class="nav-item">
+      <a
+        class="nav-link "
+        id="analyse-tab"
+        data-bs-toggle="tab"
+        href="nouvAnalyse"
+        role="tab"
+        aria-controls="analyse"
+        aria-selected="false"
+      >
+        <i class="fas fa-flask"></i> Analyse
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        id="epreuve-tab"
+        data-bs-toggle="tab"
+        href="nouvEpreuve"
+        role="tab"
+        aria-controls="epreuve"
+        aria-selected="false"
+      >
+        <i class="fas fa-info-circle"></i> Épreuve
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link active"
+        id="examen-tab"
+        data-bs-toggle="tab"
+        href="nouvExamen"
+        role="tab"
+        aria-controls="examen"
+        aria-selected="true"
+      >
+        <i class="fas fa-vial"></i> Examen
+      </a>
+    </li>
+  </ul>
+
+    <div
+      class="tab-pane fade show active"
+      id="examen"
+      role="tabpanel"
+      aria-labelledby="examen-tab"
+    >
+      <div class="mt-3">
+        <h3>Information sur l'Examen</h3>
+        <form>
+          <div class="row mb-3">
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="ID de l'examen"
+                name="idExamen"
+              />
+            </div>
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Numéro du dossier"
+                name="fkNumDossier"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="ID de l'épreuve"
+                name="fkIdEpreuve"
+              />
+            </div>
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="ID du test d'analyse"
+                name="fkIdTestAnalyse"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+              <textarea
+                class="form-control"
+                rows="3"
+                placeholder="Résultat de l'examen"
+                name="resultat"
+              ></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-11 text-right">
+      <button class="btn btn-danger mr-3" (click)="cancelClick()">
+        <i class="fas fa-ban"></i>&nbsp;
+        Annuler
+      </button>
+      <button class="btn btn-primary" >
+        <i class="fas fa-save"></i>&nbsp;
+        Enregsitrer
+      </button>
+    </div>
+
+
+
+
+
+

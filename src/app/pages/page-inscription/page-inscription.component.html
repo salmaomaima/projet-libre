@@ -1,0 +1,120 @@
+
+<header>
+  <div class="logo">
+    <a href="index.html"> <span>Mon</span>Labo</a>
+  </div>
+  <ul class="menu">
+    <li><a href="/pa">Accueil</a></li>
+    <li><a href="#a-propos">À propos</a></li>
+    <li><a href="/login">Se connecter</a></li>
+  </ul>
+  <div class="responsive-menu"></div>
+</header>
+
+<div class="salma">
+  <div class="wrapper">
+    <h1>S'inscrire</h1>
+    <div class="card-body">
+      <div class="alert alert-success" style="display: none;">
+        Succès ! Votre compte a été créé.
+      </div>
+      <div class="alert alert-danger" style="display: none;">
+        Une erreur s'est produite. Veuillez réessayer.
+      </div>
+      <form>
+        <div class="input-box">
+          <input type="text" placeholder="Nom" name="nom" required>
+        </div>
+        <div class="input-box">
+          <input type="text" placeholder="Profession" name="profession" required>
+        </div>
+        <div class="input-box">
+          <input type="email" placeholder="E-mail" name="email" required>
+        </div>
+        <div class="input-box">
+          <input type="password" placeholder="Mot de passe" name="password" required>
+        </div>
+        <div class="input-box">
+          <input type="text" placeholder="Ville" name="ville" required>
+        </div>
+        <div class="input-box">
+          <input type="text" placeholder="Code postal" name="codePostale" required>
+        </div>
+        <div class="input-box">
+          <input type="text" placeholder="Numéro de téléphone" name="numTel" required>
+        </div>
+        <button type="submit" class="btn">S'inscrire</button>
+      </form>
+      <div class="register-link">
+        <p>Vous avez déjà un compte ? <a href="/login">Se connecter</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!--
+
+<header>
+  <div class="logo">
+      <a href="index.html"> <span>Mon</span>Labo</a>
+  </div>
+  <ul class="menu">
+      <li><a routerLink="/pageacceuil">Acceuil</a></li>
+      <li><a href="#a-propos">à propos</a></li>
+      <li><a  routerLink="/login">se connecter</a></li>
+
+  </ul>
+  <div class="responsive-menu"></div>
+</header>
+<div class="salma">
+
+
+<div class="wrapper">
+  <h1>S'inscrire</h1>
+  <div class="card-body">
+    <div *ngIf="successMsg" class="alert alert-success">
+      {{ successMsg }}
+    </div>
+    <div class="alert alert-danger" *ngIf="errorsMsg.length > 0">
+      <div *ngFor="let msg of errorsMsg">
+        <span>{{ msg }}</span>
+      </div>
+    </div>
+    <form (ngSubmit)="inscrire()">
+      <div class="input-box">
+        <input type="text" placeholder="Nom" [(ngModel)]="entrepriseDto.nom" name="nom" required>
+      </div>
+      <div class="input-box">
+        <input type="text" placeholder="profession" [(ngModel)]="entrepriseDto.codeFiscal" name="codeFiscal" required>
+      </div>
+      <div class="input-box">
+        <input type="email" placeholder="E-mail" [(ngModel)]="entrepriseDto.email" name="email" required>
+      </div>
+      <div class="input-box">
+        <input type="text" placeholder="Password" [(ngModel)]="adresse.adresse1" name="adresse1" required>
+      </div>
+
+      <div class="input-box">
+        <input type="text" placeholder="role" [(ngModel)]="adresse.ville" name="ville" required>
+      </div>
+      <div class="input-box">
+        <input type="text" placeholder="Code postal" [(ngModel)]="adresse.codePostale" name="codePostale" required>
+      </div>
+
+      <div class="input-box">
+        <input type="text" placeholder="Numéro de téléphone" [(ngModel)]="entrepriseDto.numTel" name="numTel" required>
+      </div>
+      <button type="submit" class="btn">S'inscrire</button>
+    </form>
+    <div class="register-link">
+      <p>Vous avez déjà un compte ? <a [routerLink]="['/login']">Se connecter</a></p>
+    </div>
+  </div>
+</div>
+</div>
+   -->

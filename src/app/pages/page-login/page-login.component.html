@@ -1,0 +1,140 @@
+
+<header>
+  <div class="logo">
+      <a href="index.html"> <span>Mon</span> Labo</a>
+  </div>
+  <ul class="menu">
+      <li><a  href="/pa">Accueil</a></li>
+      <li><a href="#a-propos">À propos</a></li>
+      <li><a  href="/inscrire">S'inscrire</a></li>
+  </ul>
+  <div class="responsive-menu"></div>
+</header>
+<div class="salma">
+  <div class="wrapper">
+    <h1>Se connecter</h1>
+    <div class="card-body">
+      <div class="input-box">
+        <input type="text" placeholder="Username" required>
+        <i class='bx bxs-user'></i>
+      </div>
+      <div class="input-box">
+        <input type="password" placeholder="Password" required>
+        <i class='bx bxs-lock-alt'></i>
+      </div>
+      <div class="remember-forgot">
+        <label><input type="checkbox"> Se souvenir de moi</label>
+        <a href="#">Oublier mot de passe</a>
+      </div>
+      <button type="button" class="btn">Se connecter</button>
+      <div class="register-link">
+        <p>Vous n'avez pas de compte ? <a routerLink="/inscrire">S'inscrire</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <header> -->
+  <!-- <div class="logo">
+      <a href="index.html"> <span>Mon</span> Labo</a>
+  </div>
+  <ul class="menu">
+      <li><a routerLink="/pageacceuil">Acceuil</a></li>
+      <li><a href="#a-propos">à propos</a></li>
+      <li><a  routerLink="/inscrire">s'inscrire</a></li>
+  </ul>
+  <div class="responsive-menu"></div>
+</header>
+<div class="salma">
+  <div class="wrapper">
+    <h1>Se connecter</h1>
+    <div class="card-body">
+      <div class="alert alert-danger" *ngIf="errorMessage">
+        {{errorMessage}}
+      </div>
+    <div class="input-box">
+      <input type="text" placeholder="Username" [(ngModel)] = "authenticationRequest.login" required>
+      <i class='bx bxs-user'></i>
+    </div>
+    <div class="input-box">
+      <input type="password" placeholder="Password" [(ngModel)] = "authenticationRequest.password" required>
+      <i class='bx bxs-lock-alt' ></i>
+    </div>
+    <div class="remember-forgot">
+      <label><input type="checkbox">Se souvenir de moi</label>
+      <a href="#">Oublier mot de passe </a>
+    </div>
+    <button type="submit" class="btn" (click)="login()">Se connecter</button>
+    <div class="register-link">
+      <p>Vous n'avez pas de compte ? <a [routerLink]="['/inscrire']">s'inscrire</a></p>
+    </div> -->
+<!-- </div>
+</div> -->
+ <!-- <div class="container my-container">
+  <div class="card justify-content-md-center">
+    <div class="card-header text-center">
+      <h3>Se connecter</h3>
+    </div>
+    <div class="card-body">
+      <div class="alert alert-danger" *ngIf="errorMessage">
+        {{errorMessage}}
+      </div>
+      <div class="mb-3">
+        <input type="email" class="form-control" placeholder="E-mail" [(ngModel)] = "authenticationRequest.login">
+      </div>
+      <div class="mb-3">
+        <input type="password" class="form-control" placeholder="Mot de passe" [(ngModel)] = "authenticationRequest.password">
+      </div>
+      <div class="mb-3 d-flex justify-content-between">
+        <a [routerLink]="['/inscrire']" class="btn btn-link">S'inscrire</a>
+        <button type="button" class="btn btn-primary" (click)="login()">
+          <i class="fas fa-check"></i>&nbsp;Se connecter
+        </button>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!--
+<div class="container my-container" style="background-image: url('assets/images.png');">
+  <div class="card justify-content-md-center">
+    <div class="card-header text-center" style="background-color: rgba(0, 0, 0, 0.05);">
+      <h3>Se connecter</h3>
+    </div>
+    <div class="card-body">
+      <div class="alert alert-danger" *ngIf="errorMessage">
+        {{errorMessage}}
+      </div>
+      <div class="mb-3">
+        <input type="email" class="form-control" placeholder="E-mail" [(ngModel)]="authenticationRequest.login">
+      </div>
+      <div class="mb-3">
+        <input type="password" class="form-control" placeholder="Mot de passe" [(ngModel)]="authenticationRequest.password">
+      </div>
+      <div class="mb-3 d-flex justify-content-between">
+        <a [routerLink]="['/inscrire']" class="btn btn-link">S'inscrire</a>
+        <button type="button" class="btn btn-primary" (click)="login()">
+          <i class="fas fa-check"></i>&nbsp;Se connecter
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+ -->
+
+
+
+ <!-- <div class="vid-container">
+  <img class="bgimg" src="C:\Users\SALMA\test\src\assets\images.png" alt="Background Image">
+  <div class="inner-container">
+    <div class="box">
+      <h1>Login</h1>
+      <input type="text" placeholder="Username"/>
+      <input type="password" placeholder="Password"/>
+      <button>Login</button>
+      <p>Not a member? <span>Sign Up</span></p>
+    </div>
+  </div>
+</div> -->
+

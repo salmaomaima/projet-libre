@@ -1,0 +1,106 @@
+<!-- <div class="container">
+  <div class="row mb-3">
+    <div class="col-md-8">
+      <h1 class="display-4">Liste des analyses</h1>
+    </div>
+    <div class="col-md-4 text-end">
+      <app-boutton-action (clickEvent)="nouveauClient()"></app-boutton-action>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-danger">
+        Message d'erreur
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div
+      class="col-md-4"
+      *ngFor="let Analyse of listAnalyse"
+    >
+      <app-detail-clt-frs></app-detail-clt-frs>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col text-center">
+      <app-pagination></app-pagination>
+    </div>
+  </div>
+</div> -->
+
+<header>
+  <div class="logo">
+      <a href="index.html"> <span>Mon</span>Labo</a>
+  </div>
+  <ul class="menu">
+      <li><a  href="/pa">Acceuil</a></li>
+      <li><a href="#a-propos">à propos</a></li>
+      <li><a   href="/login">se connecter</a></li>
+      <li><a   href="/inscrire">s'inscrire</a></li>
+  </ul>
+  <div class="responsive-menu"></div>
+</header>
+
+
+ <div class="col">
+  <div class="row m-3">
+    <div class="col-md-8 p-0">
+      <h1>Liste des utilisateur</h1>
+    </div>
+    <div class="col-md-4 text-right">
+      <app-boutton-action
+      (clickEvent)="nouvLabo()"
+      ></app-boutton-action>
+    </div>
+  </div>
+  <div class="col m-3">
+<hr>
+    <app-detail-labo
+    ></app-detail-labo>
+    <hr>
+    <app-detail-labo
+    ></app-detail-labo>
+  </div>
+  <div class="row mb-3" *ngIf="listLabo.length">
+    <div class=" col-md-12 text-center">
+      <app-pagination></app-pagination>
+    </div>
+  </div>
+
+
+
+
+
+<!-- <div class="col">
+  <div class="row m-3">
+    <div class="col-md-8 p-0">
+      <h1>Liste des clients</h1>
+    </div>
+    <div class="col-md-4 text-right">
+      <app-boutton-action
+      (clickEvent)="nouveauClient()"
+      ></app-boutton-action>
+    </div>
+  </div>
+  <div class="col m-3">
+    <div class="alert alert-danger" *ngIf="errorMsg">
+      {{ errorMsg }}
+    </div>
+    <app-detail-clt-frs
+      *ngFor="let client of listClient"
+      [clientFournisseur]="client"
+      [origin]="'client'"
+      (suppressionResult)="handleSuppression($event)"
+    ></app-detail-clt-frs>
+  </div>
+  <div class="row mb-3" *ngIf="listClient.length">
+    <div class=" col-md-12 text-center">
+      <app-pagination></app-pagination>
+    </div>
+  </div>
+
+</div> -->

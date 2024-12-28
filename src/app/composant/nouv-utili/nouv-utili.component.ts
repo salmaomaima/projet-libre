@@ -1,0 +1,134 @@
+import { CommonModule } from '@angular/common';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ActivatedRoute, Router, RouterModule} from '@angular/router';
+import { UtilisateurDto } from '../../../gs-api/src/models';
+import { UserService } from '../../services/user.service';
+import { FormsModule } from '@angular/forms';
+// import {ClientDto} from '../../../gs-api/src/models/client-dto';
+// import {AdresseDto} from '../../../gs-api/src/models/adresse-dto';
+// import {CltfrsService} from '../../services/cltfrs/cltfrs.service';
+// import {FournisseurDto} from '../../../gs-api/src/models/fournisseur-dto';
+// import {PhotosService} from '../../../gs-api/src/services/photos.service';
+// import SavePhotoParams = PhotosService.SavePhotoParams;
+
+@Component({
+  selector: 'app-nouv-utili',
+  templateUrl: './nouv-utili.component.html',
+  styleUrls: ['./nouv-utili.component.scss'],
+  standalone: true,
+
+    imports: [CommonModule, RouterModule,FormsModule]
+})
+export class NouvUtiliComponent implements OnInit {
+
+  origin = '';
+ @Input()
+  UtilisateurDto: any = {};
+  // adresseDto: AdresseDto = {};
+  errorMsg: Array<string> = [];
+  file: File | null = null;
+  imgUrl: string | ArrayBuffer = 'assets/th66.jpeg';
+
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+     private userService: UserService
+    // private photoService: PhotosService
+  ) { }
+
+  ngOnInit(): void {
+    this.activatedRoute.data.subscribe(data => {
+      this.origin = data['origin'];
+    });
+    // this.findObject();
+  }
+
+  // findObject(): void {
+  //   const id = this.activatedRoute.snapshot.params['id'];
+  //   if (id) {
+  //     if (this.origin === 'client') {
+  //       this.cltFrsService.findClientById(id)
+  //       .subscribe(client => {
+  //         this.clientFournisseur = client;
+  //         this.adresseDto = this.clientFournisseur.adresse;
+  //       });
+  //     } else if (this.origin === 'fournisseur') {
+  //       this.cltFrsService.findFournisseurById(id)
+  //       .subscribe(fournisseur => {
+  //         this.clientFournisseur = fournisseur;
+  //         this.adresseDto = this.clientFournisseur.adresse;
+  //       });
+  //     }
+  //   }
+  // }
+
+  // enregistrer(): void {
+  //   if (this.origin === 'client') {
+  //     this.cltFrsService.enregistrerClient(this.mapToClient())
+  //     .subscribe(client => {
+  //       this.savePhoto(client.id, client.nom);
+  //     }, error => {
+  //       this.errorMsg = error.error.errors;
+  //     });
+  //   } else if (this.origin === 'fournisseur') {
+  //     this.cltFrsService.enregistrerFournisseur(this.mapToFournisseur())
+  //     .subscribe(fournisseur => {
+  //       this.savePhoto(fournisseur.id, fournisseur.nom);
+  //     }, error => {
+  //       this.errorMsg = error.error.errors;
+  //     });
+  //   }
+  // }
+
+  cancelClick(): void {
+    if (this.origin === 'client') {
+      this.router.navigate(['client']);
+    } else if (this.origin === 'fournisseur') {
+      this.router.navigate(['fournisseur']);
+    }
+  }
+
+  // mapToClient(): ClientDto {
+  //   const clientDto: ClientDto = this.clientFournisseur;
+  //   clientDto.adresse = this.adresseDto;
+  //   return clientDto;
+  // }
+
+  // mapToFournisseur(): FournisseurDto {
+  //   const fournisseurDto: FournisseurDto = this.clientFournisseur;
+  //   fournisseurDto.adresse = this.adresseDto;
+  //   return fournisseurDto;
+  // }
+
+  onFileInput(files: FileList | null): void {
+    if (files) {
+      this.file = files.item(0);
+      if (this.file) {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(this.file);
+        fileReader.onload = (event) => {
+          if (fileReader.result) {
+            this.imgUrl = fileReader.result;
+          }
+        };
+      }
+    }
+  }
+
+  // savePhoto(idObject?: number, titre?: string): void {
+  //   if (idObject && titre && this.file) {
+  //     const params: SavePhotoParams = {
+  //       id: idObject,
+  //       file: this.file,
+  //       title: titre,
+  //       context: this.origin
+  //     };
+    //   this.photoService.savePhoto(params)
+    //   .subscribe(res => {
+    //     this.cancelClick();
+    //   });
+    // } else {
+    //   this.cancelClick();
+    // }
+  }
+
