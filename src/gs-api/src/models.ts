@@ -1,3 +1,4 @@
 export type { UtilisateurDto } from './models/utilisateur-dto';
 export type { JwtAuthenticationResponse } from './models/jwt-authentication-response';
-export type { User } from './models/user';
+export type{ User } from './models/user';
+export type { LaboratoireDTO } from './models/laboratoire-dto';

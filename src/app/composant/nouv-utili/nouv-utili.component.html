@@ -107,31 +107,40 @@
   <h2 class="mb-3">
     <i class="fas fa-info-circle blue-color"></i>&nbsp;Informations sur l'utilisateur
   </h2>
+  <div class="alert alert-danger" *ngIf="errorMsg.length > 0">
+    <div *ngFor="let msg of errorMsg">
+      {{ msg }}
+    </div>
+  </div>
+  <div class="alert alert-success" *ngIf="successMsg">
+    {{ successMsg }}
+  </div>
 
   <form>
+
     <div class="row mb-3">
       <div class="col">
         <input type="email" [(ngModel)]="UtilisateurDto.email" class="form-control" placeholder="Adresse email" name="email" />
       </div>
       <div class="col">
-        <input type="text" class="form-control" placeholder="ID Laboratoire" name="fkIdLaboratoire"  />
+        <input type="text" [(ngModel)]="UtilisateurDto.laboratoireId" class="form-control" placeholder="ID Laboratoire" name="fkIdLaboratoire"  />
       </div>
     </div>
 
     <div class="row mb-3">
       <div class="col">
-        <input type="text" class="form-control" placeholder="Nom complet" name="nomComplet" />
+        <input type="text" [(ngModel)]="UtilisateurDto.nomComplet" class="form-control" placeholder="Nom complet" name="nomComplet" />
       </div>
       <div class="col">
-        <input type="text" class="form-control" placeholder="Profession" name="profession" />
+        <input type="text" [(ngModel)]="UtilisateurDto.profession"   class="form-control" placeholder="Profession" name="profession" />
       </div>
     </div>
 
     <div class="row mb-3">
       <div class="col">
-        <input type="tel" class="form-control" placeholder="Numéro de téléphone" name="numTel" />
+        <input type="tel"  [(ngModel)]="UtilisateurDto.numTel" class="form-control" placeholder="Numéro de téléphone" name="numTel" />
       </div>
-      <div class="col">
+      <div class="col" >
         <label class="form-label">Signature</label>
         <div>  </div>
         <button type="button" class="btn btn-outline-primary" (click)="fileInput.click()">
@@ -147,14 +156,25 @@
         />
       </div>
     </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label class="form-label">Utilisateur Actif</label>
+        <select class="form-control" [(ngModel)]="UtilisateurDto.isActive" name="isActive">
+          <option value="true">true</option>
+          <option value="false">false</option>
+        </select>
+      </div>
+    </div>
+
 
     <div class="row mb-3">
       <div class="col">
-        <select class="form-control" name="role">
+        <label class="form-label">Role</label>
+        <select class="form-control" [(ngModel)]="UtilisateurDto.role" name="role">
           <option value="" disabled selected>Rôle</option>
-          <option value="administrateur">Administrateur</option>
-          <option value="technicien">Technicien</option>
-          <option value="utilisateur">Utilisateur</option>
+          <option value="administrateur">ADMIN</option>
+          <option value="technicien">USER</option>
+
         </select>
       </div>
       <div class="col">
@@ -167,7 +187,7 @@
         <i class="fas fa-ban"></i>&nbsp;
         Annuler
       </button>
-      <button class="btn btn-primary" >
+      <button class="btn btn-primary" (click)="saveUser()">
         <i class="fas fa-save"></i>&nbsp;
         Enregitrer
       </button>

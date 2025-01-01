@@ -28,6 +28,7 @@ export class NouvUtiliComponent implements OnInit {
   errorMsg: Array<string> = [];
   file: File | null = null;
   imgUrl: string | ArrayBuffer = 'assets/th66.jpeg';
+  successMsg: string = '';
 
   constructor(
     private router: Router,
@@ -42,6 +43,71 @@ export class NouvUtiliComponent implements OnInit {
     });
     // this.findObject();
   }
+
+
+  // saveUser(): void {
+  //   this.userService.addNewUser(this.UtilisateurDto).subscribe(
+  //     response => {
+  //       console.log('User saved successfully:', response);
+  //       if (typeof response === 'string') {
+  //         localStorage.setItem('authToken', response);
+  //       } else {
+  //         console.log('Response object:', response);
+  //       }
+  //     },
+  //     error => {
+  //       console.error('Error saving user:', error);
+  //       // Ajoutez plus d'informations sur l'erreur retournée
+  //       if (error.status) {
+  //         console.error(`Error status: ${error.status}, message: ${error.message}`);
+  //       }
+  //       this.errorMsg.push('There was an error saving the user.');
+  //     }
+  //   );
+  // }
+  saveUser(): void {
+    this.userService.addNewUser(this.UtilisateurDto).subscribe({
+      next: response => {
+        console.log('User saved successfully:', response);
+        this.successMsg = 'Utilisateur enregistré avec succès !';
+        if (response) {
+          localStorage.setItem('authToken', response); // Si c'est un token JWT
+        }
+      },
+      error: error => {
+        console.error('Error occurred:', error);
+        if (error.status === 200) {
+          console.warn('User saved successfully, but response caused parsing error.');
+          this.successMsg = 'Utilisateur enregistré avec succès !';
+        } else {
+          this.errorMsg.push('There was an error saving the user.');
+        }
+      }
+    });
+  }
+
+
+  // saveUser(): void {
+  //   // Appel au service UserService pour enregistrer l'utilisateur
+  //   this.userService.addNewUser(this.UtilisateurDto).subscribe(
+  //     response => {
+  //       console.log('User saved successfully', response);
+  //       // Vérifiez ici si la réponse est JSON ou un message spécifique (comme un token JWT)
+  //       if (typeof response === 'string') {
+  //         // Si la réponse est une chaîne (par exemple, un token JWT), vous pouvez la traiter ici
+  //         localStorage.setItem('authToken', response);
+  //       } else {
+  //         // Si la réponse est un objet JSON, vous pouvez gérer cela ici
+  //         console.log('Response:', response);
+  //       }
+  //       // Rediriger ou afficher un message de succès
+  //     },
+  //     error => {
+  //       console.error('Error saving user', error);
+  //       this.errorMsg.push('There was an error saving the user.');
+  //     }
+  //   );
+  // }
 
   // findObject(): void {
   //   const id = this.activatedRoute.snapshot.params['id'];
@@ -81,11 +147,9 @@ export class NouvUtiliComponent implements OnInit {
   // }
 
   cancelClick(): void {
-    if (this.origin === 'client') {
-      this.router.navigate(['client']);
-    } else if (this.origin === 'fournisseur') {
-      this.router.navigate(['fournisseur']);
-    }
+
+      this.router.navigate(['utilisateur']);
+
   }
 
   // mapToClient(): ClientDto {
