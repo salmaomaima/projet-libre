@@ -10,6 +10,7 @@ import { map as __map, filter as __filter } from 'rxjs/operators';
 import { UtilisateurDto } from '../models/utilisateur-dto';
 import { JwtAuthenticationResponse } from '../models/jwt-authentication-response';
 import { User } from '../models/user';
+import { LaboratoireDTO } from '../models/laboratoire-dto';
 @Injectable({
   providedIn: 'root',
 })
@@ -20,6 +21,7 @@ class AuthControllerService extends __BaseService {
   static readonly getTokenPath = '/auth/token';
   static readonly addNewUserPath = '/auth/register';
   static readonly validateTokenPath = '/auth/validate';
+  static readonly getLaboratoireByIdPath = '/auth/laboratoires/{id}';
   static readonly getAllUtilisateursPath = '/auth/getAllUtilisateurs';
 
   constructor(
@@ -68,9 +70,9 @@ class AuthControllerService extends __BaseService {
   /**
    * @param params The `AuthControllerService.MettreAJourUtilisateurParams` containing the following parameters:
    *
-   * - `id`:
+   * - `utilisateur`:
    *
-   * - `body`:
+   * - `id`:
    *
    * @return OK
    */
@@ -78,8 +80,8 @@ class AuthControllerService extends __BaseService {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
+    __body = params.utilisateur;
 
-    __body = params.body;
     let req = new HttpRequest<any>(
       'PUT',
       this.rootUrl + `/auth/${encodeURIComponent(String(params.id))}`,
@@ -100,9 +102,9 @@ class AuthControllerService extends __BaseService {
   /**
    * @param params The `AuthControllerService.MettreAJourUtilisateurParams` containing the following parameters:
    *
-   * - `id`:
+   * - `utilisateur`:
    *
-   * - `body`:
+   * - `id`:
    *
    * @return OK
    */
@@ -147,14 +149,14 @@ class AuthControllerService extends __BaseService {
   }
 
   /**
-   * @param body undefined
+   * @param jwtAuthentication undefined
    * @return OK
    */
-  getTokenResponse(body: JwtAuthenticationResponse): __Observable<__StrictHttpResponse<string>> {
+  getTokenResponse(jwtAuthentication: JwtAuthenticationResponse): __Observable<__StrictHttpResponse<{}>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
-    __body = body;
+    __body = jwtAuthentication;
     let req = new HttpRequest<any>(
       'POST',
       this.rootUrl + `/auth/token`,
@@ -162,35 +164,35 @@ class AuthControllerService extends __BaseService {
       {
         headers: __headers,
         params: __params,
-        responseType: 'text'
+        responseType: 'json'
       });
 
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<string>;
+        return _r as __StrictHttpResponse<{}>;
       })
     );
   }
   /**
-   * @param body undefined
+   * @param jwtAuthentication undefined
    * @return OK
    */
-  getToken(body: JwtAuthenticationResponse): __Observable<string> {
-    return this.getTokenResponse(body).pipe(
-      __map(_r => _r.body as string)
+  getToken(jwtAuthentication: JwtAuthenticationResponse): __Observable<{}> {
+    return this.getTokenResponse(jwtAuthentication).pipe(
+      __map(_r => _r.body as {})
     );
   }
 
   /**
-   * @param body undefined
+   * @param user undefined
    * @return OK
    */
-  addNewUserResponse(body: User): __Observable<__StrictHttpResponse<string>> {
+  addNewUserResponse(user: User): __Observable<__StrictHttpResponse<string>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
-    __body = body;
+    __body = user;
     let req = new HttpRequest<any>(
       'POST',
       this.rootUrl + `/auth/register`,
@@ -209,11 +211,11 @@ class AuthControllerService extends __BaseService {
     );
   }
   /**
-   * @param body undefined
+   * @param user undefined
    * @return OK
    */
-  addNewUser(body: User): __Observable<string> {
-    return this.addNewUserResponse(body).pipe(
+  addNewUser(user: User): __Observable<string> {
+    return this.addNewUserResponse(user).pipe(
       __map(_r => _r.body as string)
     );
   }
@@ -251,6 +253,42 @@ class AuthControllerService extends __BaseService {
   validateToken(token: string): __Observable<string> {
     return this.validateTokenResponse(token).pipe(
       __map(_r => _r.body as string)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return OK
+   */
+  getLaboratoireByIdResponse(id: number): __Observable<__StrictHttpResponse<LaboratoireDTO>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/auth/laboratoires/${encodeURIComponent(String(id))}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<LaboratoireDTO>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return OK
+   */
+  getLaboratoireById(id: number): __Observable<LaboratoireDTO> {
+    return this.getLaboratoireByIdResponse(id).pipe(
+      __map(_r => _r.body as LaboratoireDTO)
     );
   }
 
@@ -294,8 +332,8 @@ module AuthControllerService {
    * Parameters for mettreAJourUtilisateur
    */
   export interface MettreAJourUtilisateurParams {
+    utilisateur: UtilisateurDto;
     id: number;
-    body: UtilisateurDto;
   }
 }
 

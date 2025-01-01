@@ -2,6 +2,7 @@
 export interface User {
   active?: boolean;
   email?: string;
+  getfkIdLaboratoire?: number;
   id?: number;
   numTel?: string;
   password?: string;

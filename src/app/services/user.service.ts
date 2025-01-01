@@ -30,4 +30,23 @@ export class UserService {
 
   return this.http.delete(`${this.baseurl}/${id}`);
 }
+
+// Method to add a new user
+// addNewUser(user: UtilisateurDto): Observable<string> {
+//   const headers = new HttpHeaders().set('Content-Type', 'application/json');
+//   return this.http.post<string>(`${this.baseurl}/register`, user, { headers });
+// }
+// addNewUser(user: UtilisateurDto): Observable<any> {
+//   const headers = new HttpHeaders().set('Content-Type', 'application/json');
+//   return this.http.post<any>(`${this.baseurl}/register`, user, { headers });
+// }
+addNewUser(user: UtilisateurDto): Observable<any> {
+  const headers = new HttpHeaders().set('Content-Type', 'application/json');
+  return this.http.post(`${this.baseurl}/register`, user, {
+    headers,
+    responseType: 'text', // Spécifiez 'text' si le backend retourne une chaîne ou une réponse vide
+  });
+}
+
+
 }
