@@ -3,52 +3,62 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import { MenuComponent } from '../../composant/menu/menu.component';
 import { HeaderComponent } from '../../composant/header/header.component';
+import { NgModule } from '@angular/core';
 import { PaginationComponent } from '../../composant/pagination/pagination.component';
 import { BouttonActionComponent } from '../../composant/boutton-action/boutton-action.component';
-import { DetailCltFrsComponent } from '../../composant/detail-clt-frs/detail-clt-frs.component';
 // import {CltfrsService} from '../../../services/cltfrs/cltfrs.service';
 // import {ClientDto} from '../../../../gs-api/src/models/client-dto';
+import { AnalyseControllerService } from '../../../gs-api/sr/services';
+import { Analyse } from '../../../gs-api/sr/models';
+import { HttpClientModule } from '@angular/common/http';
+import { NouvAnalyseComponent } from '../../composant/nouv-analyse/nouv-analyse.component';
+import { DetailCltFrsComponent } from '../../composant/detail-clt-frs/detail-clt-frs.component';
+import { FormsModule } from '@angular/forms';
+
+
+
 
 @Component({
   selector: 'app-page-analyse',
   templateUrl: './page-analyse.component.html',
   styleUrls: ['./page-analyse.component.scss'],
   standalone: true,
-  imports: [CommonModule ,MenuComponent,HeaderComponent,PaginationComponent,BouttonActionComponent,DetailCltFrsComponent],
+  imports: [CommonModule ,DetailCltFrsComponent,HttpClientModule,MenuComponent,HeaderComponent,PaginationComponent,BouttonActionComponent, FormsModule],
 })
+
+
+
 export class PageAnalyseComponent implements OnInit {
-  listAnalyse: any[] = [
-    { id: 1, name: 'Analyse1', email: 'client1@example.com' },
-    { id: 2, name: 'Analyse2', email: 'client2@example.com' },
-  ];
-  // listClient: Array<ClientDto> = [];
+  listAnalyse: Analyse[] = [];
   errorMsg = '';
 
   constructor(
     private router: Router,
-    // private cltFrsService: CltfrsService
-  ) { }
+    private analyseService: AnalyseControllerService,
+   
+  ) {}
 
   ngOnInit(): void {
-  //   this.findAllClients();
-   }
+    this.getAllAnalyses();
+  }
 
-  // findAllClients(): void {
-  //   this.cltFrsService.findAllClients()
-  //   .subscribe(clients => {
-  //     this.listClient = clients;
-  //   });
-  // }
+  getAllAnalyses(): void {
+    this.analyseService.getAllAnalyses()
+      .subscribe({
+        next: (analyses) => {
+          this.listAnalyse = analyses;
+        },
+        error: (error) => {
+          this.errorMsg = 'Erreur lors de la récupération des analyses.';
+          console.error(error);
+        }
+      });
+  }
+
+  
+  
 
   nouvanalyse(): void {
     this.router.navigate(['nouvAnalyse']);
   }
-
-  // handleSuppression(event: any): void {
-  //   if (event === 'success') {
-  //     this.findAllClients();
-  //   } else {
-  //     this.errorMsg = event;
-  //   }
-  // }
 }

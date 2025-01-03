@@ -107,63 +107,40 @@
     <div class="col">
       <div class="row">
         <div class="col-md-1"><i class="fas fa-flask blue-color"></i></div>
-        <div class="col-md-10">Analyse Chimique</div>
+        <div class="col-md-10" *ngIf="Analyse">Nom : {{Analyse.nom }}</div>
       </div>
       <div class="row">
         <div class="col-md-1"><i class="fas fa-info-circle blue-color"></i></div>
-        <div class="col-md-10">Description détaillée de l'analyse chimique d'échantillons</div>
+        <div class="col-md-10" *ngIf="Analyse">Description : {{Analyse.description}}</div>
       </div>
       <div class="row">
         <div class="col-md-1"><i class="fas fa-info-circle blue-color"></i></div>
-        <div class="col-md-10">Nom Epreuve</div>
+        <div class="col-md-10"*ngIf="Analyse">Id Laboratoire : {{Analyse.fkLaboratoire}}</div>
       </div>
-      <!-- Nouvelle section pour le résultat -->
-      <div class="row mt-2">
-        <div class="col-md-1"><i class="fas fa-check-circle green-color"></i></div>
-        <div class="col-md-10">Résultat de l'analyse : Conforme</div>
-      </div>
+
+
+  <div class="col">
+  <div class="d-flex justify-content-end align-items-start mt-3"> <!-- Utilisation de d-flex pour aligner les éléments -->
+    <div class="me-3"> <!-- Espacement entre les boutons -->
+      <button type="button" class="btn btn-link" (click)="onSubmit2()">
+        <i class="fas fa-pencil-alt"></i>&nbsp;Modifier
+      </button>
+    </div>
+    <div>
+      <button type="button" class="btn btn-link text-danger" (click)="Analyse.id ? deleteAnalyse(Analyse.id) : null">
+        <i class="fas fa-trash-alt"></i>&nbsp;Supprimer
+      </button>
+      
     </div>
   </div>
+</div>
 
 
-  <div class="col-md-3 custom-border-right mb-1 mt-1 ">
-    <div class="col">
-      <div class="row">
-        <div class="col-md-1"><i class="fas fa-calendar-alt blue-color"></i></div>
-        <div class="col-md-10">Date: 2024-12-16</div>
-      </div>
-      <div class="row">
-        <div class="col-md-1"><i class="fas fa-location-arrow blue-color"></i></div>
-        <div class="col-md-10">Laboratoire XYZ</div>
-      </div>
-      <div class="row">
-        <div class="col-md-1"><i class="fas fa-user-md blue-color"></i></div>
-        <div class="col-md-10">Méthodes utilisées : Spectroscopie, Chromatographie</div>
-      </div>
-    </div>
   </div>
-
-
-  <div class="col-md-3 mb-1 mt-1 ">
-    <div class="row">
-      <div class="col-md-4">
-        <button type="button" class="btn btn-link" (click)="modifierAnalyse()" >
-          <i class="fas fa-pencil-alt"></i>&nbsp;Modifier
-        </button>
-      </div>
-      <div class="col-md-4">
-        <button type="button" class="btn btn-link text-danger" >
-          <i class="fas fa-trash-alt"></i>&nbsp;Supprimer
-        </button>
-      </div>
-      <div class="col-md-4">
+<!-- <div class="col-md-4">
         <button type="button" class="btn btn-link ">
           <i class="far fa-list-alt"></i>&nbsp;Details
-        </button>
-      </div>
-    </div>
-  </div>
-
+        </button> -->
   <div class="modal fade"  data-backdrop="static" data-keyboard="false" tabindex="-1"
        aria-labelledby="staticBackdropLabel"
        aria-hidden="true">
@@ -183,6 +160,7 @@
             <i class="fas fa-ban"></i>&nbsp;Annuler</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">
             <i class="fas fa-trash-alt"></i>&nbsp;Supprimer</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="showSnackbar()">Test Snackbar</button>
         </div>
       </div>
     </div>

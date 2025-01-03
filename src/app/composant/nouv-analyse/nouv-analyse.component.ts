@@ -1,130 +1,70 @@
-import { CommonModule } from '@angular/common';
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {ActivatedRoute, Router, RouterModule} from '@angular/router';
-// import {ClientDto} from '../../../gs-api/src/models/client-dto';
-// import {AdresseDto} from '../../../gs-api/src/models/adresse-dto';
-// import {CltfrsService} from '../../services/cltfrs/cltfrs.service';
-// import {FournisseurDto} from '../../../gs-api/src/models/fournisseur-dto';
-// import {PhotosService} from '../../../gs-api/src/services/photos.service';
-// import SavePhotoParams = PhotosService.SavePhotoParams;
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AnalyseControllerService } from '../../../gs-api/sr/services';
+import { Analyse } from '../../../gs-api/sr/models';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-nouveau-clt-frs',
+  selector: 'app-nouv-analyse',
   templateUrl: './nouv-analyse.component.html',
   styleUrls: ['./nouv-analyse.component.scss'],
   standalone: true,
-    imports: [CommonModule, RouterModule]
+  imports: [FormsModule]
 })
 export class NouvAnalyseComponent implements OnInit {
-
-  origin = '';
-
-  clientFournisseur: any = {};
-  // adresseDto: AdresseDto = {};
-  errorMsg: Array<string> = [];
-  file: File | null = null;
-  imgUrl: string | ArrayBuffer = 'assets/analyse.png';
+  analyse: Analyse = { id: 0, nom: '', description: '', fkLaboratoire: 0 };
+  isEditMode = false;
 
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
-    // private cltFrsService: CltfrsService,
-    // private photoService: PhotosService
-  ) { }
+    private analyseService: AnalyseControllerService
+  ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(data => {
-      this.origin = data['origin'];
-    });
-    // this.findObject();
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.isEditMode = true;
+      this.loadAnalyseDetails(+id);
+    }
   }
 
-  // findObject(): void {
-  //   const id = this.activatedRoute.snapshot.params['id'];
-  //   if (id) {
-  //     if (this.origin === 'client') {
-  //       this.cltFrsService.findClientById(id)
-  //       .subscribe(client => {
-  //         this.clientFournisseur = client;
-  //         this.adresseDto = this.clientFournisseur.adresse;
-  //       });
-  //     } else if (this.origin === 'fournisseur') {
-  //       this.cltFrsService.findFournisseurById(id)
-  //       .subscribe(fournisseur => {
-  //         this.clientFournisseur = fournisseur;
-  //         this.adresseDto = this.clientFournisseur.adresse;
-  //       });
-  //     }
-  //   }
-  // }
+  loadAnalyseDetails(id: number): void {
+    this.analyseService.getAnalyseById(id).subscribe({
+      next: (data) => {
+        this.analyse = data; // Pré-remplit les champs avec les données récupérées
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement de l\'analyse :', err);
+      }
+    });
+  }
 
-  // enregistrer(): void {
-  //   if (this.origin === 'client') {
-  //     this.cltFrsService.enregistrerClient(this.mapToClient())
-  //     .subscribe(client => {
-  //       this.savePhoto(client.id, client.nom);
-  //     }, error => {
-  //       this.errorMsg = error.error.errors;
-  //     });
-  //   } else if (this.origin === 'fournisseur') {
-  //     this.cltFrsService.enregistrerFournisseur(this.mapToFournisseur())
-  //     .subscribe(fournisseur => {
-  //       this.savePhoto(fournisseur.id, fournisseur.nom);
-  //     }, error => {
-  //       this.errorMsg = error.error.errors;
-  //     });
-  //   }
-  // }
+  saveAnalyse(): void {
+    if (this.isEditMode) {
+      this.analyseService.updateAnalyse(this.analyse.id!, this.analyse).subscribe({
+        next: () => {
+          console.log('Analyse mise à jour avec succès.');
+          this.router.navigate(['analyse']); // Redirige vers la liste après modification
+        },
+        error: (err) => {
+          console.error('Erreur lors de la mise à jour de l\'analyse :', err);
+        }
+      });
+    } else {
+      this.analyseService.createAnalyse(this.analyse).subscribe({
+        next: () => {
+          console.log('Nouvelle analyse créée avec succès.');
+          this.router.navigate(['analyses']); // Redirige vers la liste après création
+        },
+        error: (err) => {
+          console.error('Erreur lors de la création de l\'analyse :', err);
+        }
+      });
+    }
+  }
 
   cancelClick(): void {
-    if (this.origin === 'client') {
-      this.router.navigate(['client']);
-    } else if (this.origin === 'fournisseur') {
-      this.router.navigate(['fournisseur']);
-    }
+    this.router.navigate(['analyses']); // Redirige vers la liste sans enregistrer
   }
-
-  // mapToClient(): ClientDto {
-  //   const clientDto: ClientDto = this.clientFournisseur;
-  //   clientDto.adresse = this.adresseDto;
-  //   return clientDto;
-  // }
-
-  // mapToFournisseur(): FournisseurDto {
-  //   const fournisseurDto: FournisseurDto = this.clientFournisseur;
-  //   fournisseurDto.adresse = this.adresseDto;
-  //   return fournisseurDto;
-  // }
-
-  onFileInput(files: FileList | null): void {
-    if (files) {
-      this.file = files.item(0);
-      if (this.file) {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(this.file);
-        fileReader.onload = (event) => {
-          if (fileReader.result) {
-            this.imgUrl = fileReader.result;
-          }
-        };
-      }
-    }
-  }
-
-  // savePhoto(idObject?: number, titre?: string): void {
-  //   if (idObject && titre && this.file) {
-  //     const params: SavePhotoParams = {
-  //       id: idObject,
-  //       file: this.file,
-  //       title: titre,
-  //       context: this.origin
-  //     };
-    //   this.photoService.savePhoto(params)
-    //   .subscribe(res => {
-    //     this.cancelClick();
-    //   });
-    // } else {
-    //   this.cancelClick();
-    // }
-  }
-
+}

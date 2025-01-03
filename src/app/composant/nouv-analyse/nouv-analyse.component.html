@@ -148,63 +148,71 @@
   <div class="tab-content" id="infoTabsContent">
     <!-- Analyse Section -->
     <div
-      class="tab-pane fade show active"
-      id="analyse"
-      role="tabpanel"
-      aria-labelledby="analyse-tab"
-    >
-      <div class="mt-3">
-        <h3>Information sur l'Analyse</h3>
-        <form>
-          <div class="row mb-3">
-            <div class="col">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="ID de l'analyse"
-                name="idAnalyse"
-              />
-            </div>
-            <div class="col">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Nom"
-                name="nom"
-              />
-            </div>
+  class="tab-pane fade show active"
+  id="analyse"
+  role="tabpanel"
+  aria-labelledby="analyse-tab"
+>
+  <div class="mt-3">
+    <h3>Information sur l'Analyse</h3>
+    <form>
+      
+      <div class="container">
+        <div class="row mb-3">
+          <!-- Champ "Nom" -->
+          <div class="col-md-4">
+            <label for="nom" class="form-label">Nom</label>
+            <input
+              type="text"
+              id="nom"
+              class="form-control"
+              placeholder="Entrez le nom"
+              name="nom"
+              [(ngModel)]="analyse.nom"
+            />
           </div>
-          <div class="row mb-3">
-            <div class="col">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Laboratoire"
-                name="laboratoire"
-              />
-            </div>
-            <div class="col">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Description"
-                name="description"
-              />
-            </div>
+          
+          <!-- Champ "Laboratoire" -->
+          <div class="col-md-4">
+            <label for="laboratoire" class="form-label">Laboratoire</label>
+            <input
+              type="text"
+              id="laboratoire"
+              class="form-control"
+              placeholder="Entrez le laboratoire"
+              name="laboratoire"
+              [(ngModel)]="analyse.fkLaboratoire"
+            />
           </div>
-        </form>
+      
+          <!-- Champ "Description" -->
+          <div class="col-md-4">
+            <label for="description" class="form-label">Description</label>
+            <input
+              type="text"
+              id="description"
+              class="form-control"
+              placeholder="Entrez la description"
+              name="description"
+              [(ngModel)]="analyse.description"
+            />
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="col-md-11 text-right">
-      <button class="btn btn-danger mr-3" (click)="cancelClick()">
-        <i class="fas fa-ban"></i>&nbsp;
-        Annuler
-      </button>
-      <button class="btn btn-primary" >
-        <i class="fas fa-save"></i>&nbsp;
-        Enregsitrer
-      </button>
-    </div>
+      
+      
+    </form>
+  </div>
+</div>
+<div class="col-md-11 text-right">
+  <button class="btn btn-danger mr-3" (click)="cancelClick()">
+    <i class="fas fa-ban"></i>&nbsp; Annuler
+  </button>
+  <button class="btn btn-primary" (click)="saveAnalyse()">
+    <i class="fas fa-save"></i>&nbsp; Enregistrer
+  </button>
+</div>
+
 
 <!--
 

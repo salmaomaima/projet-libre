@@ -80,6 +80,8 @@ export const routes: Routes = [
                        component: NouvExamenComponent,
                          canActivate: [ApplicationGuardService]
                          },{ path: 'nouvUtili/:id', component: NouvUtiliComponent ,canActivate: [ApplicationGuardService] },
+                         { path: 'nouvAnalyse/:id', component: NouvAnalyseComponent ,canActivate: [ApplicationGuardService] },
+
 
                         ]
 

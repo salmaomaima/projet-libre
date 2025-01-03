@@ -1,0 +1,199 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Microservice API",
+      "description": "Documentation de l'API de microservice",
+      "contact": {
+        "name": "Support API",
+        "email": "support@exemple.com"
+      },
+      "version": "1.0"
+    },
+    "host": "localhost:5010",
+    "schemes": ["http"],
+    "paths": {
+      "/api/analyses/{id}": {
+        "get": {
+          "tags": ["analyse-controller"],
+          "operationId": "getAnalyseById",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "format": "int32"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Analyse"
+              }
+            }
+          }
+        },
+        "put": {
+          "tags": ["analyse-controller"],
+          "operationId": "updateAnalyse",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "format": "int32"
+            }
+          ],
+          "consumes": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Analyse"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Analyse"
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": ["analyse-controller"],
+          "operationId": "deleteAnalyse",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "format": "int32"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/analyses": {
+        "get": {
+          "tags": ["analyse-controller"],
+          "operationId": "getAllAnalyses",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Analyse"
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": ["analyse-controller"],
+          "operationId": "createAnalyse",
+          "consumes": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Analyse"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Analyse"
+              }
+            }
+          }
+        }
+      },
+      "/api/analyses/laboratoires/{id}": {
+        "get": {
+          "tags": ["analyse-controller"],
+          "operationId": "getLaboratoireById",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/LaboratoireDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Analyse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nom": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "fkLaboratoire": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "LaboratoireDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nom": {
+            "type": "string"
+          },
+          "logo": {
+            "type": "string"
+          },
+          "nrc": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "dateActivation": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  }
+  
