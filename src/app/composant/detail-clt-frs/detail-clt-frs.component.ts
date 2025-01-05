@@ -7,6 +7,8 @@ import { Analyse } from '../../../gs-api/sr/models';
 import { AnalyseControllerService } from '../../../gs-api/sr/services';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { ChangeDetectorRef } from '@angular/core';
+
 @Component({
   selector: 'app-detail-clt-frs',
   templateUrl: './detail-clt-frs.component.html',
@@ -33,11 +35,13 @@ export class DetailCltFrsComponent implements OnInit {
   clientFournisseur: any = {};
   @Output()
   suppressionResult = new EventEmitter();
+  @Output() Analyser = new EventEmitter<void>();
 
   constructor(
     private router: Router,
     private analyseService: AnalyseControllerService,
     private snackBar: MatSnackBar,
+    private cdr: ChangeDetectorRef,
         
     // private cltFrsService: CltfrsService
   ) { }
@@ -49,20 +53,17 @@ export class DetailCltFrsComponent implements OnInit {
   }
 
   getAllAnalyses(): void {
-    this.analyseService.getAllAnalyses()
-      .subscribe({
-        next: (analyses) => {
-          this.listAnalyse = analyses;
-        },
-        error: (error) => {
-          this.errorMsg = 'Erreur lors de la récupération des analyses.';
-          console.error(error);
-        }
-      });
+    this.analyseService.getAllAnalyses().subscribe({
+      next: (analyses) => {
+        this.listAnalyse = analyses;
+      },
+      error: (error) => {
+        console.error('Erreur lors de la récupération des analyses :', error);
+      }
+    });
   }
-  
 
-  deleteAnalyse(id: number): void {
+  deleteAnalyse(id: number | undefined): void {
     if (!id) {
       console.error('ID is missing');
       return;
@@ -70,35 +71,21 @@ export class DetailCltFrsComponent implements OnInit {
   
     this.analyseService.deleteAnalyse(id).subscribe({
       next: () => {
-        console.log('Analyse deleted successfully');
+        // Créez une nouvelle référence pour la liste
         this.listAnalyse = this.listAnalyse.filter(analyse => analyse.id !== id);
-  
-        // Show success Snackbar
-        this.snackBar.open('Analyse supprimée avec succès!', 'Fermer', {
-          duration: 3000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
+        console.log('Liste après suppression :', this.listAnalyse); // Vérifiez la liste
+        this.cdr.detectChanges(); // Forcer la détection des changements
+        console.log('Analyse supprimée avec succès');
+        this.Analyser.emit();
+        this.router.navigate(['analyse', this.Analyse.id]);
+        
       },
       error: (error) => {
         console.error('Erreur lors de la suppression :', error);
-  
-        // Show error Snackbar
-        this.snackBar.open('Erreur lors de la suppression.', 'Fermer', {
-          duration: 3000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
       }
     });
   }
-  showSnackbar(): void {
-    this.snackBar.open('This is a test Snackbar!', 'Close', {
-      duration: 3000,
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
-  }
+  
   
   onSubmit(): void {
     if (this.Analyse.id) {

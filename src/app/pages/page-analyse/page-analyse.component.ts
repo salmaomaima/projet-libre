@@ -56,7 +56,17 @@ export class PageAnalyseComponent implements OnInit {
   }
 
   
-  
+  actualiserListe(): void {
+    // Actualiser la liste des laboratoires (par exemple en la récupérant à nouveau)
+    this.analyseService.getAllAnalyses().subscribe(
+      (analyses) => {
+        this.listAnalyse = analyses;
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des analyses', error);
+      }
+    );
+  }
 
   nouvanalyse(): void {
     this.router.navigate(['nouvAnalyse']);

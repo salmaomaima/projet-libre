@@ -27,10 +27,11 @@
 
   <!-- Affichage de la liste des analyses -->
   <div *ngIf="listAnalyse.length; else noAnalyses">
-    <div *ngFor="let analyse of listAnalyse" class="row mb-3">
+    <div *ngFor="let analyse of listAnalyse" class="row mb-3"> 
       <div class="col">
         <app-detail-clt-frs
           [Analyse]="analyse"
+          (Analyser)="actualiserListe()"
         ></app-detail-clt-frs>
       </div>
     </div>

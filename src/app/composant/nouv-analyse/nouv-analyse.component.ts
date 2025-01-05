@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 export class NouvAnalyseComponent implements OnInit {
   analyse: Analyse = { id: 0, nom: '', description: '', fkLaboratoire: 0 };
   isEditMode = false;
-
+ 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -55,7 +55,7 @@ export class NouvAnalyseComponent implements OnInit {
       this.analyseService.createAnalyse(this.analyse).subscribe({
         next: () => {
           console.log('Nouvelle analyse créée avec succès.');
-          this.router.navigate(['analyses']); // Redirige vers la liste après création
+          this.router.navigate(['analyse']); // Redirige vers la liste après création
         },
         error: (err) => {
           console.error('Erreur lors de la création de l\'analyse :', err);
@@ -64,7 +64,9 @@ export class NouvAnalyseComponent implements OnInit {
     }
   }
 
+ 
+
   cancelClick(): void {
-    this.router.navigate(['analyses']); // Redirige vers la liste sans enregistrer
+    this.router.navigate(['analyse']); // Redirige vers la liste sans enregistrer
   }
 }
